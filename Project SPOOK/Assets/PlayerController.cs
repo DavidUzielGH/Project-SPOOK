@@ -1,53 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
-    enum AnimationState
-    {
-        idleDown = 0,
-        idleRight = 1,
-        idleUp= 2,
-        idleLeft= 3,
-        movDown = 4,
-        movRight = 5,
-        movDown = 6,
-        movRight = 7,
-    }
+public class PlayerController : MonoBehaviour { 
     Animator movementAnimator;
-    int movementKey;
+    public int moveSpeed;
     void Start()
     {
         movementAnimator = GetComponent<Animator>();
     }
     void Update()
     {
-        if (Input.GetKeyDown())
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-
+            transform.position += Vector3.down * +moveSpeed * Time.deltaTime;
+            movementAnimator.SetInteger("Animation State", 0);
         }
-    }
-
-    int ChangeAnimatorState(int animatorState)
-    {
-        switch (animatorState)
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
-            case 0:
-                movementAnimator.SetInteger("Estado", animatorState);
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
+            transform.position += Vector3.right * +moveSpeed * Time.deltaTime;
+            movementAnimator.SetInteger("Animation State", 1);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.position += Vector3.left * +moveSpeed * Time.deltaTime;
+            movementAnimator.SetInteger("Animation State", 3);
+        }
+        else if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.position += Vector3.up * +moveSpeed * Time.deltaTime;
+            movementAnimator.SetInteger("Animation State", 2);
         }
     }
 }
